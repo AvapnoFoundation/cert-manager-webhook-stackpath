@@ -1,0 +1,26 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging-stackpath
+spec:
+  acme:
+    # Staging API
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: acme-hy65rf@avapnohelpinghand.org
+    privateKeySecretRef:
+      name: acme-hy65rf
+    solvers:
+    - dns01:
+        webhook:
+          groupName: k8s.avapnohelpinghand.org
+          solverName: stackpath
+          config:
+            Stack:
+              name: cm-issuer-stackpath-api-creds
+              key: stack
+            ClientID:
+              name: cm-issuer-stackpath-api-creds
+              key: client-id
+            ClientSecret:
+              name: cm-issuer-stackpath-api-creds
+              key: client-secret
